@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -63,13 +64,16 @@ public class addActivity extends AppCompatActivity
                 name = (EditText)findViewById(R.id.name) ;
                 description = (EditText)findViewById(R.id.description) ;
                 SharedPreferences.Editor editor = sharedpreferences.edit() ;
-                editor.putString(String.valueOf(name), "name") ;
-                editor.putString(String.valueOf(description), "description") ;
+                // sharedpreferences.edit().clear().commit() ;
                 int counter = sharedpreferences.getInt("counter", 0) ;
-                counter ++;
+                editor.putString(String.valueOf(counter), name.getText().toString()) ;
+                editor.putString(String.valueOf(counter+1), description.getText().toString()) ;
+                counter +=2 ;
                 editor.putInt("counter", counter).apply();
                 editor.commit() ;
                 Toast.makeText(addActivity.this, "Item created", Toast.LENGTH_SHORT).show();
+                Intent intent1 = new Intent(String.valueOf(MainActivity.class)) ;
+                startActivity(intent1);
             }
         });
     }

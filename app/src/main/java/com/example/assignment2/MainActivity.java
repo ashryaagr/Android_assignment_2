@@ -1,6 +1,8 @@
 package com.example.assignment2;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -12,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +23,7 @@ import android.widget.Button;
 import com.example.assignment2.adapters.RecyclerviewCustomAdapter;
 import com.example.assignment2.models.item;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
@@ -58,7 +62,14 @@ public class MainActivity extends AppCompatActivity
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(layoutManager);
         items = new ArrayList<>();
-
+        final SharedPreferences sharedpreferences = getSharedPreferences("assignment2", Context.MODE_PRIVATE);
+        int counter = sharedpreferences.getInt("counter", 0);
+        for (int i=0; i<counter; i+=2){
+            String name = sharedpreferences.getString(String.valueOf(i), " ");
+            String description = sharedpreferences.getString(String.valueOf(i+1), " ") ;
+            item Item = new item(name, description, R.drawable.bb) ;
+            items.add(Item) ;
+        }
         // item twitter = new item("Twitter", "Yolo description", R.drawable.bb);
         // item facebook = new item("Facebook", "Some description", R.drawable.bb);
 
@@ -133,5 +144,16 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        int counter = sharedpreferences.getInt("counter", 0);
+//        for (int i=0; i<counter; i+=2){
+//            String name = sharedpreferences.getString(String.valueOf(i), " ");
+//            String description = sharedpreferences.getString(String.valueOf(i+1), " ") ;
+//            item Item = new item(name, description, R.drawable.bb) ;
+//        }
     }
 }
