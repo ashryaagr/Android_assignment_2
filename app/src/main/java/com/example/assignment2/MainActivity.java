@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.assignment2.adapters.RecyclerviewCustomAdapter;
 import com.example.assignment2.models.item;
@@ -88,16 +89,17 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
+    
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        Toast.makeText(this, "item selected", Toast.LENGTH_SHORT).show();
         switch (id){
-            case R.id.add:
+            case R.id.add :
                 Intent intent = new Intent(this, addActivity.class) ;
                 startActivity(intent);
+
                 break;
         }
 
