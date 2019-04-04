@@ -1,5 +1,8 @@
 package com.example.assignment2;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -12,13 +15,23 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class addActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    EditText name, description;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        final SharedPreferences sharedpreferences = getSharedPreferences("assignment2", Context.MODE_PRIVATE);
+
+        // Checking for the presence of counter
+
         setContentView(R.layout.activity_add);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -40,8 +53,26 @@ public class addActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-    }
 
+        // My code starts
+        Intent intent = getIntent();
+        Button submit = findViewById(R.id.submit) ;
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                name = (EditText)findViewById(R.id.name) ;
+                description = (EditText)findViewById(R.id.description) ;
+                SharedPreferences.Editor editor = sharedpreferences.edit() ;
+                editor.putString(String.valueOf(name), "name") ;
+                editor.putString(String.valueOf(description), "description") ;
+                int counter = sharedpreferences.getInt("counter", 0) ;
+                counter ++;
+                editor.putInt("counter", counter).apply();
+                editor.commit() ;
+                Toast.makeText(addActivity.this, "Item created", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
