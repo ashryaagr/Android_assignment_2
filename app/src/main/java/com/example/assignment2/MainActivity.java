@@ -8,13 +8,24 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.assignment2.adapters.RecyclerviewCustomAdapter;
+import com.example.assignment2.models.item;
+
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    RecyclerView.LayoutManager layoutManager ;
+    RecyclerView recyclerView;
+    ArrayList<item> items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +51,21 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        // Below is the code written by me and above one was written automatically as i didn't choose empty activity.
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(layoutManager);
+        items = new ArrayList<>();
+
+        // item twitter = new item("Twitter", "Yolo description", R.drawable.bb);
+        // item facebook = new item("Facebook", "Some description", R.drawable.bb);
+
+        // items.add(twitter) ;
+        // items.add(facebook) ;
+
+
+        RecyclerviewCustomAdapter adapter = new RecyclerviewCustomAdapter(this, items);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
