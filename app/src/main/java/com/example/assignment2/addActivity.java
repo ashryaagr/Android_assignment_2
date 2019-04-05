@@ -53,8 +53,8 @@ public class addActivity extends AppCompatActivity
             @SuppressLint("WrongViewCast")
             @Override
             public void onClick(View v) {
-                name = (EditText)findViewById(R.id.name) ;
-                description = (EditText)findViewById(R.id.description) ;
+                name = findViewById(R.id.name);
+                description = findViewById(R.id.description);
                 SharedPreferences.Editor editor = sharedpreferences.edit() ;
                 // sharedpreferences.edit().clear().commit() ;
                 int counter = sharedpreferences.getInt("counter", 0) ;

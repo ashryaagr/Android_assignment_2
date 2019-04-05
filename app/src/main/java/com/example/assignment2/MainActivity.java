@@ -36,6 +36,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/medium.ttf") ;
+
+        TypefaceUtil.overrideFont(getApplicationContext(), "serif", "fonts/medium.ttf");
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
